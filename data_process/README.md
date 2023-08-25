@@ -1,4 +1,6 @@
 # Feature Generation
+> It should be noted that we pre generated all features of binaries for experiment purpose. In fact, not all of them are needed to be generated based on our two designed filters. 
+
 In this document, we illustrate how we generate all features in LibvDiff which includes:
 - binary features
 - version differences 
