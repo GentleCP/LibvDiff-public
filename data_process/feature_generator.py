@@ -265,10 +265,10 @@ class FeatGenerator(object):
         }
 
     def gen_fl_feats_by_multi_bins(self, bin_paths):
-        # self.logger.info('Generating asteria features...')
-        # generate_by_multi_bins(bin_paths, gen_method=self.gen_asteria_feature, process_num=self.process_num)
-        # self.logger.info('Generating func ast depths...')
-        # generate_by_multi_bins(bin_paths, gen_method=self.gen_func_ast_depth, process_num=self.process_num)
+        self.logger.info('Generating asteria features...')
+        generate_by_multi_bins(bin_paths, gen_method=self.gen_asteria_feature, process_num=self.process_num)
+        self.logger.info('Generating func ast depths...')
+        generate_by_multi_bins(bin_paths, gen_method=self.gen_func_ast_depth, process_num=self.process_num)
         self.logger.info('Generating call graphs...')
         generate_by_multi_bins(bin_paths, gen_method=self.gen_call_graph, process_num=self.process_num)
         self.logger.info('Generating anchor paths...')
@@ -311,9 +311,8 @@ def main():
     args = ArgumentParser()
     args.add_argument('-o', '--oss', default='freetype', help='oss')
     arg = args.parse_args()
-
     bin_paths = load_bin_paths(oss=arg.oss)
-    feat_generator.run(bin_paths, software_level=False, function_level=True)
+    feat_generator.run(bin_paths, software_level=True, function_level=True)
 
 
 if __name__ == '__main__':
