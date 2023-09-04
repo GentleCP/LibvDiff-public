@@ -91,10 +91,6 @@ class FeatGenerator(object):
         exe_res['bin_path'] = str(bin_path)
         return exe_res
 
-    def gen_sl_feats_by_multi_bins(self, bin_paths):
-        self.logger.info('Generating software level features...')
-        generate_by_multi_bins(bin_paths, gen_method=self.gen_sl_feature, process_num=self.process_num)
-
     def gen_asteria_feature(self, bin_path):
         bin_path = Path(bin_path)
         mode = self.get_mode(bin_path)
@@ -202,7 +198,7 @@ class FeatGenerator(object):
             'bin_path': str(bin_path)
         }
 
-    def gen_call_graph(self, bin_path,):
+    def gen_call_graph(self, bin_path, ):
         bin_path = Path(bin_path)
         mode = self.get_mode(bin_path)
         if mode is None:
@@ -250,6 +246,7 @@ class FeatGenerator(object):
         df_ap.to_csv(anchor_path, index=False)
         cur_node2export_paths = defaultdict(list)
         export_path2cur_nodes = defaultdict(list)
+
         def update_cur_node2export_path(x):
             # print(x['cur_node'])
             cur_node2export_paths[x['cur_node']].append(f"{x['export']}@{x['path_seq']}")
@@ -264,22 +261,22 @@ class FeatGenerator(object):
             'errcode': 0,
         }
 
-    def gen_fl_feats_by_multi_bins(self, bin_paths):
-        self.logger.info('Generating asteria features...')
-        generate_by_multi_bins(bin_paths, gen_method=self.gen_asteria_feature, process_num=self.process_num)
-        self.logger.info('Generating func ast depths...')
-        generate_by_multi_bins(bin_paths, gen_method=self.gen_func_ast_depth, process_num=self.process_num)
-        self.logger.info('Generating call graphs...')
-        generate_by_multi_bins(bin_paths, gen_method=self.gen_call_graph, process_num=self.process_num)
-        self.logger.info('Generating anchor paths...')
-        generate_by_multi_bins(bin_paths, gen_method=self.gen_ap, process_num=self.process_num)
-
-    def run(self, bin_paths, software_level=True, function_level=True):
+    def run(self, bin_paths, basic=True, ast=True, call_graph=True, ap=True):
         self.logger.info('Start feature generation')
-        if software_level:
-            self.gen_sl_feats_by_multi_bins(bin_paths)
-        if function_level:
-            self.gen_fl_feats_by_multi_bins(bin_paths)
+        if basic:
+            self.logger.info('Generating software level features...')
+            generate_by_multi_bins(bin_paths, gen_method=self.gen_sl_feature, process_num=self.process_num)
+        if ast:
+            self.logger.info('Generating asteria features...')
+            generate_by_multi_bins(bin_paths, gen_method=self.gen_asteria_feature, process_num=self.process_num)
+            self.logger.info('Generating func ast depths...')
+            generate_by_multi_bins(bin_paths, gen_method=self.gen_func_ast_depth, process_num=self.process_num)
+        if call_graph:
+            self.logger.info('Generating call graphs...')
+            generate_by_multi_bins(bin_paths, gen_method=self.gen_call_graph, process_num=self.process_num)
+        if ap:
+            self.logger.info('Generating anchor paths...')
+            generate_by_multi_bins(bin_paths, gen_method=self.gen_ap, process_num=self.process_num)
         self.logger.info('Feature generation finished')
 
 
@@ -312,7 +309,7 @@ def main():
     args.add_argument('-o', '--oss', default='freetype', help='oss')
     arg = args.parse_args()
     bin_paths = load_bin_paths(oss=arg.oss)
-    feat_generator.run(bin_paths, software_level=True, function_level=True)
+    feat_generator.run(bin_paths)
 
 
 if __name__ == '__main__':

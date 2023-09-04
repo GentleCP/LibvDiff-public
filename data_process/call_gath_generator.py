@@ -34,14 +34,18 @@ def get_anchor_func_path(bin_feats, max_path_len=5):
             except nx.NetworkXError:
                 continue
             if cur_node != f_e:
-                if not cur_node.startswith('.') and not cur_node.startswith('j_'):
+                path_len = len(path_record[cur_node][f_e])
+                if not cur_node.startswith('.') and not cur_node.startswith('j_') and path_len <= max_path_len:
                     datas.append((f_e, cur_node, path_record[cur_node][f_e],
-                                  get_path_seq(path_record[cur_node][f_e]), len(path_record[cur_node][f_e])))
+                                  get_path_seq(path_record[cur_node][f_e]), path_len))
 
             for callee in callees:
                 if re.match('(__).*', callee) or callee in bin_feats['exports']:
                     continue
-                path_record[callee][f_e] = path_record[cur_node][f_e] + ({'node': callee, 'cat': 'e'},)
+                cur_path = path_record[cur_node][f_e]
+                if len(cur_path) >= 2 and cur_path[-2]['node'] == callee:
+                    continue
+                path_record[callee][f_e] = cur_path + ({'node': callee, 'cat': 'e'},)
                 if callee not in visited:
                     q.put(callee)
                     visited.add(callee)
@@ -49,10 +53,13 @@ def get_anchor_func_path(bin_feats, max_path_len=5):
             for caller in callers:
                 if re.match('(__).*', caller) or caller in bin_feats['exports']:
                     continue
-                path_record[caller][f_e] = path_record[cur_node][f_e] + ({'node': caller, 'cat': 'r'},)
+                cur_path = path_record[cur_node][f_e]
+                if len(cur_path) >= 2 and cur_path[-2]['node'] == caller:
+                    continue
+                path_record[caller][f_e] = cur_path + ({'node': caller, 'cat': 'r'},)
                 if caller not in visited:
                     q.put(caller)
                     visited.add(caller)
 
     df_paths = pd.DataFrame(datas, columns=['export', 'cur_node', 'path', 'path_seq', 'path_len'])
-    return df_paths.query(f'path_len <= {max_path_len}')
+    return df_paths
