@@ -5,10 +5,11 @@ LibvDiff is a precise and efficient open-source software (OSS) version identific
 
 ## Requirements
 Before using LibvDiff, please make sure you have installed the following environments:
-- IDA Pro 7.5 +: We utilize IDA Pro to extract necessary features from the binaries, it is mainly designed for linux, but can be easily applied to windows with simple adjustment.  
-  - Make sure the IDA Python switches to python3.
-  - Extra python packages are required to install for IDA Python: `pip install cptools tqdm networkx==2.1.0 --target="/path/to/IDA Python/DIR/"`
-  - The python version used for IDA is python3.8
+- ubuntu 18.04+: Our code is mainly designed for linux, but can be easily applied to windows with simple adjustment.
+- IDA Pro 7.5+: We utilize IDA Pro to extract necessary features from the binaries, 
+  - Make sure the IDA Python switches to python3
+  - Extra python packages are required to install for IDA Python: `pip install cptools networkx==2.4 --target="/path/to/IDA Python/DIR/"`
+    > The python version used in IDA is Python3.6, we recommend Python3.6 or Python3.8
 - conda: We strongly suggest to utilize conda to build a new python environment.
 
 ## Installation
