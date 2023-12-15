@@ -18,8 +18,8 @@ elif PLATFORM.startswith('win'):
 else:
     raise ValueError(f'platform {PLATFORM} not support')
 
-if not IDA_PATH.exists() or not IDA64_PATH.exists():
-    raise FileNotFoundError('Can not find ida, please reset your ida path!')
+# if not IDA_PATH.exists() or not IDA64_PATH.exists():
+#     raise FileNotFoundError('Can not find ida, please reset your ida path!')
 
 DEVICE = torch.device('cuda:0') if torch.cuda.is_available() else torch.device('cpu')
 SKIP_SUFFIX = {'.idb', '.idb64', '.id1', '.id0', '.id2', '.nam', '.til', '.i64', '.json', '.pkl', '.txt', '.py', '.csv'}
