@@ -71,10 +71,10 @@ finished
 - The result will be saved at `saved/libvdiff_idf_all_res`
 
 ## Dataset
-The massive compiled OSS binaries can be downloaded from [google drive](https://drive.google.com/file/d/14g5fDqO1sW9WzxWOV2xvT2XFp90XIk97/view?usp=share_link). More details about the composition of dataset can be found in paper. The data structure is organized as `OSS/Lib/architecture/optimization/version/binary`, 
+The massive compiled OSS binaries can be downloaded from [zenodo](https://zenodo.org/records/10390664). More details about the composition of dataset can be found in paper. The data structure is organized as `OSS/Lib/architecture/optimization/version/binary`, 
 
 ![img.png](imgs/data_structure.png)
 
-After downloading the dataset, decompress the data and save the data in the `dataset-public` directory to `data_process/dataset`
+After downloading the dataset, extract the dataset to `data_process`
 
   
