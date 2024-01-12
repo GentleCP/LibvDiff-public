@@ -217,7 +217,10 @@ def main(oss, cvf, apf, exp):
 
             time_cost = time.time() - start
             if pred_version == true_version:
+                print(f'\n[+] source bin option {base_option}, target bin option: {pred_option}, true: {true_version}, predict: {pred_version}')
                 true_num += 1
+            else:
+                print(f'\n[-] source bin option {base_option}, target bin option: {pred_option}, true: {true_version}, predict: {pred_version}')
             total_num += 1
             bar.set_description(
                 f'identify {true_version}-{base_option} is {pred_version}-{pred_option}, {true_num / total_num:.3f}')
@@ -240,7 +243,7 @@ def main(oss, cvf, apf, exp):
 
     df_idf_res.to_csv(f'{SAVE_DIR}/{save_name_prefix}@idf_res.csv', index=False)
 
-    print('finished')
+    print(f'Finished, precision:{true_num / total_num:.3f}')
 
 
 if __name__ == '__main__':
