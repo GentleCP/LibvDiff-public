@@ -216,6 +216,7 @@ git clone https://gitlab.freedesktop.org/freetype/freetype.git data_process/feat
 ```
 
 Then generate the version differences with `vdcs_generator.py` 
+- `vdcs_generator.py` generate the version differences of input OSS.
 
 > before running the example, please make sure the source code of OSS and compiled binaries are in the right place. 
 
