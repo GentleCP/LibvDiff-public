@@ -182,6 +182,7 @@ The workflow of LibvDiff is as follows:
 
 1. Version Signature Generation: It generates all the features based on the source code and compiled binaries of OSS as signatures. There are three main stages: **Binary Feature Generation**, **Version Difference Extraction** and **Version Coordinate System Construction**.
 > !!! It should be noted that you have to change the root directory to `data_process` with command `cd data_process` when generating version signatures
+
 2. OSS Version Identification: It identifies the OSS version used in the target binary with pre-generated signatures. There are two main stages: **Candidate Version Selection** and **Version Confirmation**.
 
 We shall discuss how these stages are implemented in the following sections.
