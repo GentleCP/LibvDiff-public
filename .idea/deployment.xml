@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="libvdiff-public#root@10.26.48.136:2323 password">
+  <component name="PublishConfigData" autoUpload="Always" serverName="libvdiff-public#root@10.26.48.136:2323 password">
     <serverData>
       <paths name="libvdiff-public#root@10.26.48.136:2323 password">
         <serverdata>
@@ -10,5 +10,6 @@
         </serverdata>
       </paths>
     </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>
